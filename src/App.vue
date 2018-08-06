@@ -33,6 +33,8 @@
         Clip
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-btn round><router-link to="/">Notes</router-link></v-btn>
+      <v-btn round><router-link to="/list">Lists</router-link></v-btn>
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
