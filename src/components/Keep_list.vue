@@ -49,6 +49,12 @@
         <h3 v-for="item in note.list">
           <input type="checkbox">{{ item.text }}
         </h3>
+        <v-btn
+          color="error"
+          v-on:click="removeNote(index)"
+        >
+          Delete
+        </v-btn>
       </v-card>
     </v-layout>
 
@@ -85,42 +91,46 @@
     };
   },
   methods: {
-  displayAddButton: function() {
-      this.add = true;
-  },
+    displayAddButton: function() {
+        this.add = true;
+    },
 
-  removeAddButton: function () {
-    this.add = false;
-  },
+    removeAddButton: function () {
+      this.add = false;
+    },
 
-  addItem: function() {
-    if (this.current_text.trim().length>0) {
-      this.current_list.push({
-        title: this.current_title,
-        text:this.current_text,
-        done: false
-      });
+    addItem: function() {
+      if (this.current_text.trim().length>0) {
+        this.current_list.push({
+          title: this.current_title,
+          text:this.current_text,
+          done: false
+        });
+      }
+
+      this.current_text = '';
+
+      console.log(this.current_list);
+    },
+
+    addNote: function () {
+      if (this.current_list.length>0) {
+        this.notes.push({
+        list: this.current_list,
+        title: this.current_title
+        });
     }
 
     this.current_text = '';
+    this.current_title = '';
+    this.current_list = [];
 
-    console.log(this.current_list);
-  },
+    console.log(this.notes);
+    },
 
-  addNote: function () {
-    if (this.current_list.length>0) {
-      this.notes.push({
-      list: this.current_list,
-      title: this.current_title
-      });
-  }
-
-  this.current_text = '';
-  this.current_title = '';
-  this.current_list = [];
-
-  console.log(this.notes);
-  }
+    removeNote: function(index) {
+      this.notes.splice(index,1);
+    }
 
   },
   name: 'Keep-list'

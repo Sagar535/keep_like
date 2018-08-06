@@ -47,6 +47,13 @@
       >
         <h2>{{ note.title }}</h2>
         <p>{{note.text}}</p>
+        <v-btn
+          text-right
+          color="error"
+          v-on:click="deleteNote(index)"
+        >
+          Delete
+        </v-btn>
       </v-card>
     </v-layout>
 
@@ -100,6 +107,11 @@
         this.current_text = '';
         this.current_title = '';
 
+        console.log(this.notes);
+      },
+
+      deleteNote: function(index) {
+        this.notes.splice(index,1);
         console.log(this.notes);
       }
 
