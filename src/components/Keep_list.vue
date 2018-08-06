@@ -40,6 +40,22 @@
 
     <v-layout>
       <v-card
+        v-if="!isCurrentListempty"
+        height = "200px"
+        width = "150px"
+      >
+        <ul>
+          <li v-for="item in current_list">
+            <h3 >
+              <input type="checkbox">{{ item.text }}
+            </h3>
+          </li>
+        </ul>
+      </v-card>
+    </v-layout>
+
+    <v-layout>
+      <v-card
         height = "200px"
         width = "150px"
         v-for="(note, index) in notes"
@@ -114,6 +130,13 @@
     },
 
     addNote: function () {
+      if (this.current_text.trim().length>0) {
+        this.current_list.push({
+          title: this.current_title,
+          text: this.current_text,
+          done: false
+        });
+      }
       if (this.current_list.length>0) {
         this.notes.push({
         list: this.current_list,
@@ -129,9 +152,18 @@
     },
 
     removeNote: function(index) {
-      this.notes.splice(index,1);
+      this.notes.splice(index, 1);
     }
 
+  },
+  computed: {
+    isCurrentListempty: function () {
+      if (this.current_list.length>0) {
+        return false;
+      } else {
+        return true;
+      }
+     }
   },
   name: 'Keep-list'
   }
