@@ -102,8 +102,7 @@
       current_item: '',
       add: false,
 
-      current_list: [],
-      notes: []
+      current_list: []
     };
   },
   methods: {
@@ -142,13 +141,15 @@
         list: this.current_list,
         title: this.current_title
         });
-    }
+      }
 
-    this.current_text = '';
-    this.current_title = '';
-    this.current_list = [];
+      this.current_text = '';
+      this.current_title = '';
+      this.current_list = [];
 
-    console.log(this.notes);
+      localStorage.setItem('lists', JSON.stringify(this.notes));
+
+      console.log(this.notes);
     },
 
     removeNote: function(index) {
@@ -163,7 +164,15 @@
       } else {
         return true;
       }
-     }
+     },
+
+    notes: function () {
+      if (localStorage.getItem('lists').length>0) {
+        return JSON.parse(localStorage.getItem('lists'));
+      } else {
+        return [];
+      }
+    }
   },
   name: 'Keep-list'
   }
