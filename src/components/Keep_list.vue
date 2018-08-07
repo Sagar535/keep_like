@@ -167,7 +167,7 @@
      },
 
     notes: function () {
-      if (localStorage.getItem('lists').length>0) {
+      if (localStorage.getItem('lists') != null) {
         return JSON.parse(localStorage.getItem('lists'));
       } else {
         return [];

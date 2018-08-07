@@ -82,9 +82,7 @@
       return {
         current_text: '',
         current_title: '',
-        add: false,
-
-        notes: []
+        add: false
       };
     },
     methods: {
@@ -107,6 +105,8 @@
         this.current_text = '';
         this.current_title = '';
 
+        localStorage.setItem('notes', JSON.stringify(this.notes));
+
         console.log(this.notes);
       },
 
@@ -115,6 +115,15 @@
         console.log(this.notes);
       }
 
+    },
+    computed: {
+      notes: function () {
+        if (localStorage.getItem('notes') != null) {
+          return JSON.parse(localStorage.getItem('notes'));
+        } else {
+          return [];
+        }
+      }
     },
     name: 'Keep-like'
   }
