@@ -50,7 +50,7 @@
         <v-btn
           text-right
           color="error"
-          v-on:click="deleteNote(index)"
+          v-on:click="removeNote(index)"
         >
           Delete
         </v-btn>
@@ -82,7 +82,9 @@
       return {
         current_text: '',
         current_title: '',
-        add: false
+        add: false,
+
+        notes: this.getNotes()
       };
     },
     methods: {
@@ -110,20 +112,24 @@
         console.log(this.notes);
       },
 
-      deleteNote: function(index) {
-        this.notes.splice(index,1);
-        console.log(this.notes);
-      }
+      removeNote: function(index) {
+        let temp_note = JSON.parse(localStorage.getItem('notes'));
 
-    },
-    computed: {
-      notes: function () {
+        temp_note.splice(index,1);
+
+        localStorage.setItem('notes', JSON.stringify(temp_note));
+
+        this.notes = this.getNotes();
+      },
+
+      getNotes: function () {
         if (localStorage.getItem('notes') != null) {
           return JSON.parse(localStorage.getItem('notes'));
         } else {
           return [];
         }
       }
+
     },
     name: 'Keep-like'
   }

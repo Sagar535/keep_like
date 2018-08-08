@@ -95,6 +95,10 @@
   stopProp(event) { event.stopPropagation() }
   }
   },
+  created() {
+    this.getNotes();
+  },
+
   data() {
     return {
       current_text: '',
@@ -102,7 +106,8 @@
       current_item: '',
       add: false,
 
-      current_list: []
+      current_list: [],
+      notes: this.getNotes()
     };
   },
   methods: {
@@ -153,10 +158,26 @@
     },
 
     removeNote: function(index) {
-      this.notes.splice(index, 1);
-    }
+      // this.notes.splice(index, 1);
 
+      let temp_note = JSON.parse(localStorage.getItem('lists'));
+
+      temp_note.splice(index,1);
+
+      localStorage.setItem('lists', JSON.stringify(temp_note));
+
+      this.notes = this.getNotes();
+    },
+
+    getNotes: function () {
+      if (localStorage.getItem('lists') != null) {
+        return JSON.parse(localStorage.getItem('lists'));
+      } else {
+        return [];
+      }
+    }
   },
+
   computed: {
     isCurrentListempty: function () {
       if (this.current_list.length>0) {
@@ -164,15 +185,7 @@
       } else {
         return true;
       }
-     },
-
-    notes: function () {
-      if (localStorage.getItem('lists') != null) {
-        return JSON.parse(localStorage.getItem('lists'));
-      } else {
-        return [];
-      }
-    }
+     }
   },
   name: 'Keep-list'
   }
